@@ -626,6 +626,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 isInitialLoad = false;
                 document.body.classList.add('loaded');
             }
+
+            // 对于任何有子菜单的活动页面，自动展开子菜单并选中第一个分类
+            setTimeout(() => {
+                const activeNavItem = document.querySelector('.nav-item.active');
+                if (activeNavItem) {
+                    const activeWrapper = activeNavItem.closest('.nav-item-wrapper');
+                    if (activeWrapper) {
+                        const submenu = activeWrapper.querySelector('.submenu');
+                        if (submenu) {
+                            // 展开活动页面的子菜单
+                            activeWrapper.classList.add('expanded');
+                            
+                            // 选中第一个分类
+                            const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                            if (firstSubmenuItem) {
+                                // 清除所有子菜单项的激活状态
+                                const allSubmenuItems = document.querySelectorAll('.submenu-item');
+                                allSubmenuItems.forEach(item => item.classList.remove('active'));
+                                
+                                // 激活当前页面的第一个子菜单项
+                                firstSubmenuItem.classList.add('active');
+                                console.log('页面切换：自动展开子菜单并选中分类：', firstSubmenuItem.getAttribute('data-category'));
+                            }
+                        }
+                    }
+                }
+            }, 150); // 稍微延迟以确保 DOM 更新完成
         });
 
         // 重置滚动位置并更新进度条
@@ -1104,11 +1131,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 100);
         });
 
-        // 初始展开当前页面的子菜单
+        // 初始展开当前激活页面的子菜单
         const activeNavItem = document.querySelector('.nav-item.active');
         if (activeNavItem) {
             const activeWrapper = activeNavItem.closest('.nav-item-wrapper');
             if (activeWrapper) {
+                const submenu = activeWrapper.querySelector('.submenu');
+                if (submenu) {
+                    // 自动展开活动导航项的子菜单
+                    activeWrapper.classList.add('expanded');
+                    console.log('自动展开活动页面子菜单');
+                    
+                    // 自动选中第一个分类
+                    setTimeout(() => {
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) {
+                            firstSubmenuItem.classList.add('active');
+                            console.log('自动选中活动页面第一个分类：', firstSubmenuItem.getAttribute('data-category'));
+                        }
+                    }, 100); // 稍微延迟以确保 DOM 已初始化完成
+                }
             }
         }
 
