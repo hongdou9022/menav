@@ -1,0 +1,18 @@
+title: 欢迎使用
+subtitle: 个人导航站点
+
+# 指定使用的模板文件名，现有页面模板可见templates\pages
+template: home
+
+categories:
+  - name: 我的网站
+    icon: fas fa-star
+    sites:
+      - name: Alist
+        url: https://alist.862863.xyz
+        icon: fas fa-hard-drive
+        description: Alist    
+      - name: MS365Renew
+        url: https://ms365.862863.xyz
+        icon: fas fa-repeat
+        description: MS365续订
